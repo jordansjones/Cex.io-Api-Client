@@ -42,7 +42,7 @@ namespace Nextmethod.Cex
 
         public Symbol To { get; private set; }
 
-        protected bool Equals(SymbolPair other)
+        public bool Equals(SymbolPair other)
         {
             return From == other.From && To == other.To;
         }

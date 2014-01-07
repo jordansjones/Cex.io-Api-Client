@@ -33,6 +33,14 @@ namespace Nextmethod.Cex
 
         public SymbolBalance NMC { get; internal set; }
 
+
+        internal static Balance FromDynamic(dynamic data)
+        {
+            var balance = new Balance();
+
+            return balance;
+        }
+
     }
 // ReSharper restore InconsistentNaming
 

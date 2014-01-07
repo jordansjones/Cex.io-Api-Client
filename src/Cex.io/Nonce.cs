@@ -7,11 +7,13 @@ namespace Nextmethod.Cex
     public static class Nonce
     {
 
+        private const long IncrementAmount = 1L;
+
         private static long _nonce;
 
         static Nonce()
         {
-            Interlocked.Exchange(ref _nonce, Helpers.UtcDateTimeToTimestamp().ToLong());
+            Interlocked.Exchange(ref _nonce, Convert.ToInt64(Helpers.UtcDateTimeToTimestamp()));
         }
 
 
@@ -19,7 +21,7 @@ namespace Nextmethod.Cex
         {
             get
             {
-                return Interlocked.Add(ref _nonce, 1L);
+                return Interlocked.Add(ref _nonce, IncrementAmount);
             }
         }
 

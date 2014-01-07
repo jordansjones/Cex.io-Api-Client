@@ -7,6 +7,8 @@ namespace Nextmethod.Cex
     public static class HttpClientFactory
     {
 
+        public static int? ConnectionLimit { get; set; }
+
         public static Func<HttpClient> Get { get; set; }
 
         static HttpClientFactory()
@@ -32,13 +34,11 @@ namespace Nextmethod.Cex
     public static class ApiUriFactory
     {
 
-        public const string BaseApiUri = "https://cex.io/api";
-
         public static Func<Uri> Get { get; set; }
 
         static ApiUriFactory()
         {
-            Get = () => new Uri(BaseApiUri);
+            Get = () => new Uri(Constants.BaseApiUri);
         }
 
         internal static Uri GetApiUri(this Api This, string path)

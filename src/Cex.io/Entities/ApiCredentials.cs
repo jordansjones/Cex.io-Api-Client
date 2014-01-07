@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -21,9 +20,10 @@ namespace Nextmethod.Cex
 
         public string ApiKey { get; private set; }
 
-        [Pure]
-        public string NewSignature(long nonce)
+
+        public string NewSignature(out long nonce)
         {
+            nonce = Nonce.Next;
             var bytes = Helpers.EncodeString(string.Format("{0}{1}{2}", nonce, Username, ApiKey));
             var hash = _hmac.ComputeHash(bytes);
             // Hexencode hash

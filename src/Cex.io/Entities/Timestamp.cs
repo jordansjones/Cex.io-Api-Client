@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 
 namespace Nextmethod.Cex
@@ -29,6 +28,11 @@ namespace Nextmethod.Cex
         public DateTime ToUtcDateTime()
         {
             return this;
+        }
+
+        public DateTime ToLocalDateTime()
+        {
+            return ToUtcDateTime().ToLocalTime();
         }
 
         public override string ToString()

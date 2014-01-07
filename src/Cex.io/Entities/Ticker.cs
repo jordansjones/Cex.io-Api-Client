@@ -34,5 +34,11 @@ namespace Nextmethod.Cex
                 Timestamp = data["timestamp"]
             };
         }
+
+        public override string ToString()
+        {
+            return string.Format("Ask: {0}, Bid: {1}, High: {2}, Low: {3}, Last: {4}, Volume: {5}, Timestamp: {6}", Ask, Bid, High, Low, Last, Volume, Timestamp);
+        }
+
     }
 }

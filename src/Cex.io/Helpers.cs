@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
@@ -9,13 +7,18 @@ namespace Nextmethod.Cex
     public static class Helpers
     {
 
+        internal static bool ContainsProperty(dynamic This, string name)
+        {
+            return This != null && !String.IsNullOrEmpty(name) && This.GetType().GetProperty(name) != null;
+        }
+
         #region Encoding Helpers
 
         private static readonly Encoding StringEncoder = Encoding.UTF8;
 
         public static byte[] EncodeString(string value)
         {
-            value = value ?? string.Empty;
+            value = value ?? String.Empty;
             return StringEncoder.GetBytes(value);
         }
 
@@ -43,16 +46,6 @@ namespace Nextmethod.Cex
         }
 
         #endregion
-
-        #region Primitive Converters
-
-        public static long ToLong(this uint This)
-        {
-            return Convert.ToInt64(This);
-        }
-
-        #endregion
-
 
     }
 }
