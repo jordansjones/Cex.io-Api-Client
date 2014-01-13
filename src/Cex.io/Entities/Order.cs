@@ -9,15 +9,15 @@ namespace Nextmethod.Cex
 
         public decimal Amount { get; set; }
 
-        public TradeId Id { get; internal set; }
-
-        public decimal Pending { get; set; }
-
         public decimal Price { get; set; }
 
-        public Timestamp Time { get; set; }
-
         public OrderType Type { get; set; }
+
+
+        public override string ToString()
+        {
+            return string.Format("Amount: {0}, Price: {1}, Type: {2}", Amount, Price, Type);
+        }
 
     }
 }

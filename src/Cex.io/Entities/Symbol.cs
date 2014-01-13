@@ -8,12 +8,10 @@ namespace Nextmethod.Cex
     public enum Symbol
     {
         BF1,
-        BTC,
-// This symbol is currently unused        
-//        DVC,
+        BTC,    
+        DVC,
         GHS,
-// This symbol is currently unused
-//        IXC,
+        IXC,
         LTC,
         NMC
     }
@@ -73,5 +71,16 @@ namespace Nextmethod.Cex
     }
 
 // ReSharper restore InconsistentNaming
+
+
+    internal static class SymbolExtensions
+    {
+
+        public static string Name(this Symbol sym)
+        {
+            return sym.ToString();
+        }
+
+    }
 
 }

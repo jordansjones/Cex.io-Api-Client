@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 namespace Nextmethod.Cex
@@ -61,7 +62,7 @@ namespace Nextmethod.Cex
 
         public override int GetHashCode()
         {
-            return (int) Value;
+            return Value.GetHashCode();
         }
 
         public static bool operator ==(Timestamp left, Timestamp right)
@@ -100,6 +101,22 @@ namespace Nextmethod.Cex
         public static implicit operator Timestamp(string value)
         {
             if (string.IsNullOrWhiteSpace("value")) throw new ArgumentNullException("value", "Value can not be null or whitespace");
+
+            long val = long.Parse(value);
+            if (val > uint.MaxValue)
+            {
+                return val;
+            }
+
+            return new Timestamp(Convert.ToUInt32(value));
+        }
+
+        public static implicit operator Timestamp(long value)
+        {
+            if (value < 0) throw new ArgumentOutOfRangeException("value", value, "Value must be >= 0");
+
+            if (value > 1000) value = (value / 1000);
+
             return new Timestamp(Convert.ToUInt32(value));
         }
 

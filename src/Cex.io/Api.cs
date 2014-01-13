@@ -39,31 +39,31 @@ namespace Nextmethod.Cex
         }
 
 
-        public async Task<Ticker> GetTicker(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        public async Task<Ticker> Ticker(SymbolPair pair, CancellationTokenSource tokenSource = null)
         {
             const string basePath = "/ticker";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
 
             return await GetServiceCall(
                 path,
-                Ticker.FromDynamic,
+                Cex.Ticker.FromDynamic,
                 tokenSource
                 );
         }
 
-        public async Task<OrderBook> GetOrderBook(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        public async Task<OrderBook> OrderBook(SymbolPair pair, CancellationTokenSource tokenSource = null)
         {
             const string basePath = "/order_book";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
 
             return await GetServiceCall(
                 path,
-                OrderBook.FromDynamic,
+                Cex.OrderBook.FromDynamic,
                 tokenSource
                 );
         }
 
-        public async Task<IEnumerable<Trade>> GetTradeHistory(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        public async Task<IEnumerable<Trade>> TradeHistory(SymbolPair pair, CancellationTokenSource tokenSource = null)
         {
             const string basePath = "/trade_history";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
@@ -75,14 +75,64 @@ namespace Nextmethod.Cex
                 );
         }
 
-        public async Task<Balance> GetAccountBalance(CancellationTokenSource tokenSource = null)
+        public async Task<Balance> AccountBalance(CancellationTokenSource tokenSource = null)
         {
-            const string basePath = "/balance";
+            const string basePath = "/balance/";
 
             return await PostServiceCall(
                 basePath,
                 () => EmptyRequestParams,
                 Balance.FromDynamic,
+                tokenSource
+                );
+        }
+
+        public async Task<IEnumerable<OpenOrder>> OpenOrders(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        {
+            const string basePath = "/open_orders";
+            var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
+
+            return await PostServiceCall(
+                path,
+                () => EmptyRequestParams,
+                x =>
+                {
+                    var ja = x as JsonArray;
+                    return ja == null 
+                        ? Enumerable.Empty<OpenOrder>() 
+                        : ja.Select(OpenOrder.FromDynamic).ToArray();
+                },
+                tokenSource
+                );
+        }
+
+        public async Task<OpenOrder> PlaceOrder(SymbolPair pair, Order order, CancellationTokenSource tokenSource = null)
+        {
+            const string basePath = "/place_order";
+            var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
+
+            return await PostServiceCall(
+                path,
+                () => new[]
+                {
+                    new KeyValuePair<string, string>("type", order.Type == OrderType.Sell ? "sell" : "buy"),
+                    new KeyValuePair<string, string>("price", order.Price.ToString()),
+                    new KeyValuePair<string, string>("amount", order.Amount.ToString())
+                },
+                OpenOrder.FromDynamic,
+                tokenSource
+                );
+        }
+
+        public async Task<bool> CancelOrder(TradeId tradeId, CancellationTokenSource tokenSource = null)
+        {
+            const string basePath = "/cancel_order/";
+            
+
+            return await PostServiceCall(
+                basePath,
+                () => new[] { new KeyValuePair<string, string>("id", tradeId.ToString()) },
+                x => (bool) x,
                 tokenSource
                 );
         }
@@ -114,11 +164,12 @@ namespace Nextmethod.Cex
             tokenSource = tokenSource ?? new CancellationTokenSource();
 
             long nonce;
+            var signature = Credentials.NewSignature(out nonce);
             var content = new FormUrlEncodedContent(
                 new[]
                 {
                     NewRequestParam(Constants.ApiParamKey, Credentials.ApiKey),
-                    NewRequestParam(Constants.ApiParamSignature, Credentials.NewSignature(out nonce)),
+                    NewRequestParam(Constants.ApiParamSignature, signature),
                     NewRequestParam(Constants.ApiParamNonce, Convert.ToString(nonce))
                 }
                     .Concat(paramFactory())

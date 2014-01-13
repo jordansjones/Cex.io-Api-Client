@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 
@@ -6,12 +7,13 @@ namespace Nextmethod.Cex
 {
     internal static class ExceptionOracle
     {
-
+        
+        [DebuggerHidden]
         public static void ThrowIfError(HttpResponseMessage response, dynamic json)
         {
             if (json == null) return;
 
-            if (!Helpers.ContainsProperty(json, Constants.ErrorProperty)) return;
+            if (!JsonHelpers.ContainsProperty(json, Constants.ErrorProperty)) return;
 
             var error = json[Constants.ErrorProperty];
             if (string.IsNullOrWhiteSpace(error)) return;

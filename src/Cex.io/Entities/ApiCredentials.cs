@@ -13,7 +13,7 @@ namespace Nextmethod.Cex
         {
             Username = username;
             ApiKey = apiKey;
-            _hmac = new HMACSHA256(Helpers.EncodeString(apiSecret));
+            _hmac = new HMACSHA256(EncodingHelpers.EncodeString(apiSecret));
         }
 
         public string Username { get; private set; }
@@ -23,9 +23,11 @@ namespace Nextmethod.Cex
 
         public string NewSignature(out long nonce)
         {
-            nonce = Nonce.Next;
-            var bytes = Helpers.EncodeString(string.Format("{0}{1}{2}", nonce, Username, ApiKey));
+            var n = Nonce.Next;
+            var bytes = EncodingHelpers.EncodeString(string.Format("{0}{1}{2}", n, Username, ApiKey));
             var hash = _hmac.ComputeHash(bytes);
+
+            nonce = n;
             // Hexencode hash
             return string.Concat(hash.Select(b => b.ToString("X2")));
         }

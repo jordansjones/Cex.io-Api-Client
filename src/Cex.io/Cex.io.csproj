@@ -40,21 +40,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Entities\OpenOrder.cs" />
+    <Compile Include="Entities\OrderBookOrder.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Entities\ApiCredentials.cs" />
     <Compile Include="Entities\Balance.cs" />
     <Compile Include="Entities\Symbol.cs" />
     <Compile Include="ExceptionOracle.cs" />
     <Compile Include="Exceptions\CexApiException.cs" />
     <Compile Include="Exceptions\CexNonceException.cs" />
-    <Compile Include="Helpers.cs" />
     <Compile Include="Factories.cs" />
-    <Compile Include="Nonce.cs" />
+    <Compile Include="Helpers\JsonHelpers.cs" />
+    <Compile Include="Helpers\EncodingHelpers.cs" />
+    <Compile Include="Helpers\Nonce.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderBook.cs" />
     <Compile Include="Entities\OrderType.cs" />
+    <Compile Include="Helpers\TimestampHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleJson.cs" />
+    <Compile Include="Helpers\SimpleJson.cs" />
     <Compile Include="Entities\Ticker.cs" />
     <Compile Include="Entities\Timestamp.cs" />
     <Compile Include="Entities\Trade.cs" />

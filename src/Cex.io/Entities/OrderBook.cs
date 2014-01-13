@@ -7,45 +7,15 @@ namespace Nextmethod.Cex
     public class OrderBook
     {
 
-        public IEnumerable<Order> Asks { get; internal set; }
+        public IEnumerable<OrderBookOrder> Asks { get; internal set; }
 
-        public IEnumerable<Order> Bids { get; internal set; }
+        public IEnumerable<OrderBookOrder> Bids { get; internal set; }
 
         public Timestamp Timestamp { get; private set; }
 
         public override string ToString()
         {
             return string.Format("Asks: {0}, Bids: {1}, Timestamp: {2}", Asks.Count(), Bids.Count(), Timestamp);
-        }
-
-        public struct Order
-        {
-
-            private readonly decimal _amount;
-
-            private readonly decimal _price;
-
-            public Order(decimal price, decimal amount)
-            {
-                _price = price;
-                _amount = amount;
-            }
-
-            public decimal Price
-            {
-                get { return _price; }
-            }
-
-            public decimal Amount
-            {
-                get { return _amount; }
-            }
-
-            public override string ToString()
-            {
-                return string.Format("Price: {0}, Amount: {1}", Price, Amount);
-            }
-
         }
 
         internal static OrderBook FromDynamic(dynamic data)
@@ -58,15 +28,16 @@ namespace Nextmethod.Cex
             };
         }
 
-        private static Order ParseOrder(dynamic orderData)
+        private static OrderBookOrder ParseOrder(dynamic orderData)
         {
             var price = orderData[0];
             var quantity = orderData[1];
-            return new Order(
+            return new OrderBookOrder(
                 Convert.ToDecimal(price),
                 decimal.Parse(quantity)
                 );
         }
 
     }
+
 }
