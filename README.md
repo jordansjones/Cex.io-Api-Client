@@ -1,4 +1,5 @@
 # Cex.io Api Client
+
 [Cex.IO](https://cex.io/r/0/jordansjones/0/) API Client Library for C# 4.5
 
 Donations always welcome: **1KLetr9U8DCVjJK1czT7KB4PxpyLhQHHJF**
@@ -56,6 +57,7 @@ public class Program
 ```
 
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2014 Jordan S. Jones
