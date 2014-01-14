@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Nextmethod.Cex
 {
-    public sealed class Api
+    public sealed class Api : ICexClient
     {
 
         #region Static Helpers
@@ -37,9 +37,11 @@ namespace Nextmethod.Cex
             Credentials = credentials;
         }
 
-        public TimeSpan? Timeout { get; set; }
-
         public ApiCredentials Credentials { get; private set; }
+
+        public Func<Uri> BasePathFactory { get { return ApiUriFactory.Get; } }
+
+        public TimeSpan? Timeout { get; set; }
 
 
         public async Task<Ticker> Ticker(SymbolPair pair, CancellationTokenSource tokenSource = null)

@@ -16,19 +16,6 @@ namespace Nextmethod.Cex
             Get = () => new HttpClient();
         }
 
-        internal static HttpClient NewHttpClient(this Api This)
-        {
-            var client = Get();
-            client.MaxResponseContentBufferSize = int.MaxValue;
-
-            if (This.Timeout != null)
-            {
-                client.Timeout = This.Timeout.Value;
-            }
-
-            return client;
-        }
-
     }
 
     public static class ApiUriFactory
@@ -36,21 +23,12 @@ namespace Nextmethod.Cex
 
         public static Func<Uri> Get { get; set; }
 
+        public static Func<Uri> GetGHash { get; set; }
+
         static ApiUriFactory()
         {
             Get = () => new Uri(Constants.BaseApiUri);
-        }
-
-        internal static Uri GetApiUri(this Api This, string path)
-        {
-            var baseUri = Get().AbsoluteUri;
-            if (!baseUri.EndsWith("/"))
-                baseUri += "/";
-
-            if (path.StartsWith("/"))
-                path = path.Substring(1);
-
-            return new Uri(string.Concat(baseUri, path));
+            GetGHash = () => new Uri(Constants.GHashBaseApiUri);
         }
 
     }

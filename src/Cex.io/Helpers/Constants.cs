@@ -10,6 +10,8 @@ namespace Nextmethod.Cex
 
         internal const string BaseApiUri = "https://cex.io/api";
 
+        internal const string GHashBaseApiUri = BaseApiUri + "/ghash.io";
+
         internal const string ApiParamAmount = "amount";
 
         internal const string ApiParamKey = "key";
@@ -31,6 +33,8 @@ namespace Nextmethod.Cex
         internal const string ErrorProperty = "error";
 
         internal const string NonceMustBeIncremented = "Nonce must be incremented";
+
+        internal const string PermissionDenied = "Permission denied";
 
         #endregion
 

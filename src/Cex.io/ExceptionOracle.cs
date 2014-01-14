@@ -24,6 +24,10 @@ namespace Nextmethod.Cex
             {
                 exception = new CexNonceException(response, Constants.NonceMustBeIncremented);
             }
+            else if (error == Constants.PermissionDenied)
+            {
+                exception = new CexPermissionDeniedException(response, Constants.PermissionDenied);
+            }
             else
             {
                 exception = new CexApiException(response, error);

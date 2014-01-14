@@ -11,8 +11,33 @@ namespace Nextmethod.Cex
     internal static class ApiHelpers
     {
 
+        internal static HttpClient NewHttpClient(this ICexClient This)
+        {
+            var client = HttpClientFactory.Get();
+            client.MaxResponseContentBufferSize = Int32.MaxValue;
+
+            if (This.Timeout != null)
+            {
+                client.Timeout = This.Timeout.Value;
+            }
+
+            return client;
+        }
+
+        internal static Uri GetApiUri(this ICexClient This, string path)
+        {
+            var baseUri = This.BasePathFactory().AbsoluteUri;
+            if (!baseUri.EndsWith("/"))
+                baseUri += "/";
+
+            if (path.StartsWith("/"))
+                path = path.Substring(1);
+
+            return new Uri(string.Concat(baseUri, path));
+        }
+
         [DebuggerHidden]
-        internal static async Task<T> GetFromService<T>(this Api This, string servicePath, Func<dynamic, T> resultFactory, CancellationTokenSource tokenSource = null)
+        internal static async Task<T> GetFromService<T>(this ICexClient This, string servicePath, Func<dynamic, T> resultFactory, CancellationTokenSource tokenSource = null)
         {
             tokenSource = tokenSource ?? new CancellationTokenSource();
             var uri = This.GetApiUri(servicePath);
@@ -30,7 +55,7 @@ namespace Nextmethod.Cex
         }
 
         [DebuggerHidden]
-        internal static async Task<T> PostToService<T>(this Api This, string servicePath, Func<IEnumerable<KeyValuePair<string, string>>> paramFactory, Func<dynamic, T> resultFactory, CancellationTokenSource tokenSource = null)
+        internal static async Task<T> PostToService<T>(this ICexClient This, string servicePath, Func<IEnumerable<KeyValuePair<string, string>>> paramFactory, Func<dynamic, T> resultFactory, CancellationTokenSource tokenSource = null)
         {
             tokenSource = tokenSource ?? new CancellationTokenSource();
 
@@ -60,7 +85,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        internal static KeyValuePair<string, string> NewRequestParam(this Api This, string key, string value)
+        internal static KeyValuePair<string, string> NewRequestParam(this ICexClient This, string key, string value)
         {
             return new KeyValuePair<string, string>(key, value);
         }
