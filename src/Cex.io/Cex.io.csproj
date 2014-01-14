@@ -42,6 +42,7 @@
     <Compile Include="Api.cs" />
     <Compile Include="Entities\OpenOrder.cs" />
     <Compile Include="Entities\OrderBookOrder.cs" />
+    <Compile Include="Helpers\ApiHelpers.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Entities\ApiCredentials.cs" />
     <Compile Include="Entities\Balance.cs" />
