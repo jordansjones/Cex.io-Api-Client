@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Nextmethod.Cex
 {
-    public sealed class Api : ICexClient
+    public sealed class CexApi : ICexClient
     {
 
         #region Static Helpers
 
         private static readonly Func<IEnumerable<KeyValuePair<string, string>>> EmptyRequestParams = () => Enumerable.Empty<KeyValuePair<string, string>>();
 
-        static Api()
+        static CexApi()
         {
             if (HttpClientFactory.ConnectionLimit != null && HttpClientFactory.ConnectionLimit.Value != Constants.DefaultConnectionLimit)
             {
@@ -29,10 +29,10 @@ namespace Nextmethod.Cex
         #endregion
 
 
-        public Api(string username, string apiKey, string apiSecret)
+        public CexApi(string username, string apiKey, string apiSecret)
             : this(new ApiCredentials(username, apiKey, apiSecret)) {}
 
-        public Api(ApiCredentials credentials)
+        public CexApi(ApiCredentials credentials)
         {
             Credentials = credentials;
         }
@@ -82,10 +82,12 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<IEnumerable<Trade>> TradeHistory(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        public async Task<IEnumerable<Trade>> TradeHistory(SymbolPair pair, TradeId? tradeId = null, CancellationTokenSource tokenSource = null)
         {
             const string basePath = "/trade_history";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
+            if (tradeId != null)
+                path += string.Format("/?since={0}", tradeId.Value);
 
             try
             {

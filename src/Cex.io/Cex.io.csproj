@@ -39,7 +39,7 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api.cs" />
+    <Compile Include="CexApi.cs" />
     <Compile Include="Entities\Hashrate.cs" />
     <Compile Include="Entities\OpenOrder.cs" />
     <Compile Include="Entities\OrderBookOrder.cs" />
