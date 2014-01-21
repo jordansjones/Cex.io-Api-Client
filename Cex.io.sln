@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cex.io", "src\Cex.io\Cex.io.csproj", "{ABCC0E08-EB39-4FF6-B02A-0EDFC6F08DC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleExample", "src\SimpleExample\SimpleExample.csproj", "{50C34151-8B50-496E-946E-336F50CCDFC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{ABCC0E08-EB39-4FF6-B02A-0EDFC6F08DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABCC0E08-EB39-4FF6-B02A-0EDFC6F08DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABCC0E08-EB39-4FF6-B02A-0EDFC6F08DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C34151-8B50-496E-946E-336F50CCDFC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C34151-8B50-496E-946E-336F50CCDFC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C34151-8B50-496E-946E-336F50CCDFC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C34151-8B50-496E-946E-336F50CCDFC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

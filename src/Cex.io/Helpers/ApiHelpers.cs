@@ -37,13 +37,12 @@ namespace Nextmethod.Cex
         }
 
         [DebuggerHidden]
-        internal static async Task<T> GetFromService<T>(this ICexClient This, string servicePath, Func<dynamic, T> resultFactory, CancellationTokenSource tokenSource = null)
+        internal static async Task<T> GetFromService<T>(this ICexClient This, string servicePath, Func<dynamic, T> resultFactory, CancellationToken? cancelToken = null)
         {
-            tokenSource = tokenSource ?? new CancellationTokenSource();
             var uri = This.GetApiUri(servicePath);
             using (var client = This.NewHttpClient())
             {
-                using (var response = await client.GetAsync(uri, tokenSource.Token))
+                using (var response = await (cancelToken.HasValue ? client.GetAsync(uri, cancelToken.Value) : client.GetAsync(uri)))
                 {
                     var body = await response.Content.ReadAsStringAsync();
                     dynamic json = SimpleJson.DeserializeObject(body);
@@ -55,10 +54,8 @@ namespace Nextmethod.Cex
         }
 
         [DebuggerHidden]
-        internal static async Task<T> PostToService<T>(this ICexClient This, string servicePath, Func<IEnumerable<KeyValuePair<string, string>>> paramFactory, Func<dynamic, T> resultFactory, CancellationTokenSource tokenSource = null)
+        internal static async Task<T> PostToService<T>(this ICexClient This, string servicePath, Func<IEnumerable<KeyValuePair<string, string>>> paramFactory, Func<dynamic, T> resultFactory, CancellationToken? cancelToken = null)
         {
-            tokenSource = tokenSource ?? new CancellationTokenSource();
-
             long nonce;
             var signature = This.Credentials.NewSignature(out nonce);
             var content = new FormUrlEncodedContent(
@@ -74,7 +71,7 @@ namespace Nextmethod.Cex
             var uri = This.GetApiUri(servicePath);
             using (var client = This.NewHttpClient())
             {
-                using (var response = await client.PostAsync(uri, content, tokenSource.Token))
+                using (var response = await (cancelToken.HasValue ? client.PostAsync(uri, content, cancelToken.Value) : client.PostAsync(uri, content)))
                 {
                     var body = await response.Content.ReadAsStringAsync();
                     dynamic json = SimpleJson.DeserializeObject(body);
@@ -87,7 +84,12 @@ namespace Nextmethod.Cex
 
         internal static KeyValuePair<string, string> NewRequestParam(this ICexClient This, string key, string value)
         {
-            return new KeyValuePair<string, string>(key, value);
+            return KvPair.New(key, value);
+        }
+
+        internal static KeyValuePair<string, string> NewRequestParam(this ICexClient This, string key, decimal value)
+        {
+            return KvPair.New(key, value.ToString("F8"));
         }
 
     }

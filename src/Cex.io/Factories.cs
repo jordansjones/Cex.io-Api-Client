@@ -21,14 +21,14 @@ namespace Nextmethod.Cex
     public static class ApiUriFactory
     {
 
-        public static Func<Uri> Get { get; set; }
+        public static Func<Uri> GetCex { get; set; }
 
         public static Func<Uri> GetGHash { get; set; }
 
         static ApiUriFactory()
         {
-            Get = () => new Uri(Constants.BaseApiUri);
-            GetGHash = () => new Uri(Constants.GHashBaseApiUri);
+            GetCex = () => new Uri(Constants.CexBaseApiUri);
+            GetGHash = () => new Uri(Constants.GhashBaseApiUri);
         }
 
     }

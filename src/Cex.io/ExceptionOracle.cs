@@ -28,6 +28,10 @@ namespace Nextmethod.Cex
             {
                 exception = new CexPermissionDeniedException(response, Constants.PermissionDenied);
             }
+            else if (error == Constants.InvalidApiKey)
+            {
+                exception = new CexInvalidApiKeyException(response, Constants.InvalidApiKey);
+            }
             else
             {
                 exception = new CexApiException(response, error);

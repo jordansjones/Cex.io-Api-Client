@@ -9,7 +9,7 @@ namespace Nextmethod.Cex
     internal interface ICexClient
     {
 
-        ApiCredentials Credentials { get; }
+        ApiCredentials Credentials { get; set; }
 
         Func<Uri> BasePathFactory { get; }
         

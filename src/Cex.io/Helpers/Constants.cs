@@ -8,9 +8,9 @@ namespace Nextmethod.Cex
 
         #region Api Related
 
-        internal const string BaseApiUri = "https://cex.io/api";
+        internal const string CexBaseApiUri = "https://cex.io/api";
 
-        internal const string GHashBaseApiUri = BaseApiUri + "/ghash.io";
+        internal const string GhashBaseApiUri = CexBaseApiUri + "/ghash.io";
 
         internal const string ApiParamAmount = "amount";
 
@@ -27,10 +27,11 @@ namespace Nextmethod.Cex
         #endregion
 
 
-
         #region Exception Related
 
         internal const string ErrorProperty = "error";
+
+        internal const string InvalidApiKey = "Invalid API key";
 
         internal const string NonceMustBeIncremented = "Nonce must be incremented";
 

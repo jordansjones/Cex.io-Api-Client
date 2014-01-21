@@ -32,19 +32,19 @@ namespace Nextmethod.Cex
         public CexApi(string username, string apiKey, string apiSecret)
             : this(new ApiCredentials(username, apiKey, apiSecret)) {}
 
-        public CexApi(ApiCredentials credentials)
+        public CexApi(ApiCredentials credentials = null)
         {
             Credentials = credentials;
         }
 
-        public ApiCredentials Credentials { get; private set; }
+        public ApiCredentials Credentials { get; set; }
 
-        public Func<Uri> BasePathFactory { get { return ApiUriFactory.Get; } }
+        public Func<Uri> BasePathFactory { get { return ApiUriFactory.GetCex; } }
 
         public TimeSpan? Timeout { get; set; }
 
 
-        public async Task<Ticker> Ticker(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        public async Task<Ticker> Ticker(SymbolPair pair, CancellationToken? cancelToken = null)
         {
             const string basePath = "/ticker";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
@@ -54,7 +54,7 @@ namespace Nextmethod.Cex
                 return await this.GetFromService(
                     path,
                     Cex.Ticker.FromDynamic,
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)
@@ -63,7 +63,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<OrderBook> OrderBook(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        public async Task<OrderBook> OrderBook(SymbolPair pair, CancellationToken? cancelToken = null)
         {
             const string basePath = "/order_book";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
@@ -73,7 +73,7 @@ namespace Nextmethod.Cex
                 return await this.GetFromService(
                     path,
                     Cex.OrderBook.FromDynamic,
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)
@@ -82,7 +82,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<IEnumerable<Trade>> TradeHistory(SymbolPair pair, TradeId? tradeId = null, CancellationTokenSource tokenSource = null)
+        public async Task<IEnumerable<Trade>> TradeHistory(SymbolPair pair, TradeId? tradeId = null, CancellationToken? cancelToken = null)
         {
             const string basePath = "/trade_history";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
@@ -94,7 +94,7 @@ namespace Nextmethod.Cex
                 return await this.GetFromService(
                     path,
                     Trade.FromDynamic,
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)
@@ -103,7 +103,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<Balance> AccountBalance(CancellationTokenSource tokenSource = null)
+        public async Task<Balance> AccountBalance(CancellationToken? cancelToken = null)
         {
             const string basePath = "/balance/";
 
@@ -113,7 +113,7 @@ namespace Nextmethod.Cex
                     basePath,
                     EmptyRequestParams,
                     Balance.FromDynamic,
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)
@@ -122,7 +122,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<IEnumerable<OpenOrder>> OpenOrders(SymbolPair pair, CancellationTokenSource tokenSource = null)
+        public async Task<IEnumerable<OpenOrder>> OpenOrders(SymbolPair pair, CancellationToken? cancelToken = null)
         {
             const string basePath = "/open_orders";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
@@ -139,7 +139,7 @@ namespace Nextmethod.Cex
                             ? Enumerable.Empty<OpenOrder>()
                             : ja.Select(OpenOrder.FromDynamic).ToArray();
                     },
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)
@@ -148,7 +148,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<OpenOrder> PlaceOrder(SymbolPair pair, Order order, CancellationTokenSource tokenSource = null)
+        public async Task<OpenOrder> PlaceOrder(SymbolPair pair, Order order, CancellationToken? cancelToken = null)
         {
             const string basePath = "/place_order";
             var path = string.Format("{0}/{1}/{2}", basePath, pair.From, pair.To);
@@ -160,11 +160,11 @@ namespace Nextmethod.Cex
                     () => new[]
                     {
                         this.NewRequestParam("type", order.Type == OrderType.Sell ? "sell" : "buy"),
-                        this.NewRequestParam("price", order.Price.ToString()),
-                        this.NewRequestParam("amount", order.Amount.ToString())
+                        this.NewRequestParam("price", order.Price),
+                        this.NewRequestParam("amount", order.Amount)
                     },
                     OpenOrder.FromDynamic,
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)
@@ -173,7 +173,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<bool> CancelOrder(TradeId tradeId, CancellationTokenSource tokenSource = null)
+        public async Task<bool> CancelOrder(TradeId tradeId, CancellationToken? cancelToken = null)
         {
             const string basePath = "/cancel_order/";
 
@@ -181,9 +181,9 @@ namespace Nextmethod.Cex
             {
                 return await this.PostToService(
                     basePath,
-                    () => new[] {this.NewRequestParam("id", tradeId.ToString())},
+                    () => new[] {this.NewRequestParam("id", tradeId)},
                     x => (bool) x,
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)

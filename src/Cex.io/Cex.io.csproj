@@ -44,6 +44,7 @@
     <Compile Include="Entities\OpenOrder.cs" />
     <Compile Include="Entities\OrderBookOrder.cs" />
     <Compile Include="Entities\WorkerHashrate.cs" />
+    <Compile Include="Exceptions\CexInvalidApiKeyException.cs" />
     <Compile Include="Exceptions\CexPermissionDeniedException.cs" />
     <Compile Include="GhashApi.cs" />
     <Compile Include="Helpers\ApiHelpers.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Factories.cs" />
     <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Helpers\EncodingHelpers.cs" />
+    <Compile Include="Helpers\KvPair.cs" />
     <Compile Include="Helpers\Nonce.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\OrderBook.cs" />

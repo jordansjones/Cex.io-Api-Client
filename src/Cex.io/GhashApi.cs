@@ -28,23 +28,22 @@ namespace Nextmethod.Cex
 
         #endregion
 
-
         public GhashApi(string username, string apiKey, string apiSecret)
             : this(new ApiCredentials(username, apiKey, apiSecret)) {}
 
-        public GhashApi(ApiCredentials credentials)
+        public GhashApi(ApiCredentials credentials = null)
         {
             Credentials = credentials;
         }
 
-        public ApiCredentials Credentials { get; private set; }
+        public ApiCredentials Credentials { get; set; }
 
         public Func<Uri> BasePathFactory { get { return ApiUriFactory.GetGHash; } }
 
         public TimeSpan? Timeout { get; set; }
 
 
-        public async Task<Hashrate> Hashrate(CancellationTokenSource tokenSource = null)
+        public async Task<Hashrate> Hashrate(CancellationToken? cancelToken = null)
         {
             const string basePath = "/hashrate";
 
@@ -54,7 +53,7 @@ namespace Nextmethod.Cex
                     basePath,
                     EmptyRequestParams,
                     Cex.Hashrate.FromDynamic,
-                    tokenSource
+                    cancelToken
                     );
             }
             catch (AggregateException ae)
@@ -63,7 +62,7 @@ namespace Nextmethod.Cex
             }
         }
 
-        public async Task<IEnumerable<KeyValuePair<string, WorkerHashrate>>> WorkersHashRate(CancellationTokenSource tokenSource = null)
+        public async Task<IEnumerable<KeyValuePair<string, WorkerHashrate>>> WorkersHashRate(CancellationToken? cancelToken = null)
         {
             const string basePath = "/workers";
 
@@ -82,7 +81,7 @@ namespace Nextmethod.Cex
                             o => WorkerHashrate.FromDynamic(o.Value)
                             );
                     },
-                    tokenSource);
+                    cancelToken);
             }
             catch (AggregateException ae)
             {
