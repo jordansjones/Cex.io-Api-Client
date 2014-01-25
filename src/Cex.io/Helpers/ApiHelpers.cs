@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -89,7 +90,7 @@ namespace Nextmethod.Cex
 
         internal static KeyValuePair<string, string> NewRequestParam(this ICexClient This, string key, decimal value)
         {
-            return KvPair.New(key, value.ToString("F8"));
+            return KvPair.New(key, value.ToString(CultureInfo.InvariantCulture));
         }
 
     }

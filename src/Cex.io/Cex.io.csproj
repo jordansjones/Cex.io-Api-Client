@@ -48,6 +48,7 @@
     <Compile Include="Exceptions\CexPermissionDeniedException.cs" />
     <Compile Include="GhashApi.cs" />
     <Compile Include="Helpers\ApiHelpers.cs" />
+    <Compile Include="Helpers\CexRounding.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Entities\ApiCredentials.cs" />
     <Compile Include="Entities\Balance.cs" />
