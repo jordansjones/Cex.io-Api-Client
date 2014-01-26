@@ -53,7 +53,7 @@ namespace Nextmethod.Cex
             {
                 return await this.GetFromService(
                     path,
-                    Cex.Ticker.FromDynamic,
+                    json => Cex.Ticker.FromDynamic(pair, json),
                     cancelToken
                     );
             }
