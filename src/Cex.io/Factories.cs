@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 
 namespace Nextmethod.Cex
@@ -13,7 +14,10 @@ namespace Nextmethod.Cex
 
         static HttpClientFactory()
         {
-            Get = () => new HttpClient();
+            Get = () => new HttpClient(new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            });
         }
 
     }

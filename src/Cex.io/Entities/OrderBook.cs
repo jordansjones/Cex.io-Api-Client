@@ -22,8 +22,8 @@ namespace Nextmethod.Cex
         {
             return new OrderBook
             {
-                Asks = ((IEnumerable<object>) data["asks"]).Select(ParseOrder).ToArray(),
-                Bids = ((IEnumerable<object>) data["bids"]).Select(ParseOrder).ToArray(),
+                Asks = ((IEnumerable<object>) data["asks"]).Select(ParseOrder).ToList(),
+                Bids = ((IEnumerable<object>) data["bids"]).Select(ParseOrder).ToList(),
                 Timestamp = data["timestamp"]
             };
         }

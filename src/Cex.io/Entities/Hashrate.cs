@@ -39,14 +39,14 @@ namespace Nextmethod.Cex
         internal static T CreateFromDynamic<T>(dynamic data, T val)
             where T : Hashrate
         {
-            val.Last5Minutes = Convert.ToDecimal(data["last5m"]);
-            val.Last15Minutes = Convert.ToDecimal(data["last15m"]);
-            val.LastHour = Convert.ToDecimal(data["last1h"]);
-            val.LastDay = Convert.ToDecimal(data["last1d"]);
-            val.Previous5Minutes = Convert.ToDecimal(data["prev5m"]);
-            val.Previous15Minutes = Convert.ToDecimal(data["prev15m"]);
-            val.PreviousHour = Convert.ToDecimal(data["prev1h"]);
-            val.PreviousDay = Convert.ToDecimal(data["prev1d"]);
+            val.Last5Minutes = JsonHelpers.ToDecimal(data["last5m"]);
+            val.Last15Minutes = JsonHelpers.ToDecimal(data["last15m"]);
+            val.LastHour = JsonHelpers.ToDecimal(data["last1h"]);
+            val.LastDay = JsonHelpers.ToDecimal(data["last1d"]);
+            val.Previous5Minutes = JsonHelpers.ToDecimal(data["prev5m"]);
+            val.Previous15Minutes = JsonHelpers.ToDecimal(data["prev15m"]);
+            val.PreviousHour = JsonHelpers.ToDecimal(data["prev1h"]);
+            val.PreviousDay = JsonHelpers.ToDecimal(data["prev1d"]);
 
             return val;
         }

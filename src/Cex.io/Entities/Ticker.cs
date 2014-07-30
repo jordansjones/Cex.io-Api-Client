@@ -25,12 +25,12 @@ namespace Nextmethod.Cex
         {
             return new Ticker
             {
-                Ask = decimal.Parse(data["ask"]),
-                Bid = decimal.Parse(data["bid"]),
-                High = decimal.Parse(data["high"]),
-                Last = decimal.Parse(data["last"]),
-                Low = decimal.Parse(data["low"]),
-                Volume = decimal.Parse(data["volume"]),
+                Ask = JsonHelpers.ToDecimal(data["ask"]),
+                Bid = JsonHelpers.ToDecimal(data["bid"]),
+                High = JsonHelpers.ToDecimal(data["high"]),
+                Last = JsonHelpers.ToDecimal(data["last"]),
+                Low = JsonHelpers.ToDecimal(data["low"]),
+                Volume = JsonHelpers.ToDecimal(data["volume"]),
                 Timestamp = data["timestamp"]
             };
         }

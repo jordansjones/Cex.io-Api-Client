@@ -163,9 +163,9 @@ namespace Nextmethod.Cex
 
         internal static SymbolBalance FromDynamic(JsonObject data)
         {
-            var available = data.ContainsKey("available") ? Convert.ToDecimal(data["available"]) : 0m;
-            var bonus = data.ContainsKey("bonus") ? Convert.ToDecimal(data["bonus"]) : 0m;
-            var orders = data.ContainsKey("orders") ? Convert.ToDecimal(data["orders"]) : 0m;
+            var available = data.ContainsKey("available") ? JsonHelpers.ToDecimal(data["available"]) : 0m;
+            var bonus = data.ContainsKey("bonus") ? JsonHelpers.ToDecimal(data["bonus"]) : 0m;
+            var orders = data.ContainsKey("orders") ? JsonHelpers.ToDecimal(data["orders"]) : 0m;
 
             return new SymbolBalance(available, bonus, orders);
         }

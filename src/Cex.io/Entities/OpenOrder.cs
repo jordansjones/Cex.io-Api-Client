@@ -23,10 +23,10 @@ namespace Nextmethod.Cex
         {
             return new OpenOrder
             {
-                Amount = decimal.Parse(data["amount"]),
+                Amount = JsonHelpers.ToDecimal(data["amount"]),
                 Id = data["id"],
-                Pending = decimal.Parse(data["pending"]),
-                Price = decimal.Parse(data["price"]),
+                Pending = JsonHelpers.ToDecimal(data["pending"]),
+                Price = JsonHelpers.ToDecimal(data["price"]),
                 Time = data["time"],
                 Type = Convert.ToString(data["type"]) == "sell" ? OrderType.Sell : OrderType.Buy
             };

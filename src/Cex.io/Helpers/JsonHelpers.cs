@@ -26,5 +26,15 @@ namespace Nextmethod.Cex
             return This.GetType().GetProperty(name);
         }
 
+        internal static decimal ToDecimal(dynamic value)
+        {
+            if (value == null) return default(decimal);
+            var valueType = value.GetType();
+
+            if (valueType == typeof (decimal)) return value;
+            if (valueType == typeof (double)) return (decimal) value;
+            return decimal.Parse(value);
+        }
+
     }
 }

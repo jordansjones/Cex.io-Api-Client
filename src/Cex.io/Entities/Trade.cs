@@ -27,9 +27,9 @@ namespace Nextmethod.Cex
             return ((IEnumerable<dynamic>) data).Select(
                 x => new Trade
                 {
-                    Amount = decimal.Parse(x["amount"]),
+                    Amount = JsonHelpers.ToDecimal(x["amount"]),
                     Date = x["date"],
-                    Price = decimal.Parse(x["price"]),
+                    Price = JsonHelpers.ToDecimal(x["price"]),
                     Id = x["tid"]
                 });
         }
