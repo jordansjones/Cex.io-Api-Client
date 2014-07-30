@@ -6,6 +6,8 @@ namespace Nextmethod.Cex
     public class Ticker
     {
 
+        public SymbolPair SymbolPair { get; internal set; }
+
         public decimal Ask { get; internal set; }
 
         public decimal Bid { get; internal set; }
@@ -21,10 +23,11 @@ namespace Nextmethod.Cex
         public Timestamp Timestamp { get; internal set; }
 
 
-        internal static Ticker FromDynamic(dynamic data)
+        internal static Ticker FromDynamic(SymbolPair symbolPair, dynamic data)
         {
             return new Ticker
             {
+                SymbolPair = symbolPair,
                 Ask = JsonHelpers.ToDecimal(data["ask"]),
                 Bid = JsonHelpers.ToDecimal(data["bid"]),
                 High = JsonHelpers.ToDecimal(data["high"]),
@@ -37,7 +40,7 @@ namespace Nextmethod.Cex
 
         public override string ToString()
         {
-            return string.Format("Ask: {0}, Bid: {1}, High: {2}, Low: {3}, Last: {4}, Volume: {5}, Timestamp: {6}", Ask, Bid, High, Low, Last, Volume, Timestamp);
+            return string.Format("SymbolPair: {0}, Ask: {1}, Bid: {2}, High: {3}, Last: {4}, Low: {5}, Volume: {6}, Timestamp: {7}", SymbolPair, Ask, Bid, High, Last, Low, Volume, Timestamp);
         }
 
     }
