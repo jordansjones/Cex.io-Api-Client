@@ -13,18 +13,21 @@ namespace Nextmethod.Cex
         GHS,
         IXC,
         LTC,
-        NMC
+        NMC,
+        USD,
+        EUR
     }
 
     
     public sealed class SymbolPair
     {
-
         public static readonly SymbolPair GHS_BTC = new SymbolPair(Symbol.GHS, Symbol.BTC);
         public static readonly SymbolPair GHS_NMC = new SymbolPair(Symbol.GHS, Symbol.NMC);
         public static readonly SymbolPair LTC_BTC = new SymbolPair(Symbol.LTC , Symbol.BTC);
         public static readonly SymbolPair NMC_BTC = new SymbolPair(Symbol.NMC, Symbol.BTC);
         public static readonly SymbolPair BF1_BTC = new SymbolPair(Symbol.BF1, Symbol.BTC);
+        public static readonly SymbolPair BTC_USD = new SymbolPair(Symbol.BTC, Symbol.USD);
+        public static readonly SymbolPair BTC_EUR = new SymbolPair(Symbol.BTC, Symbol.EUR);
 
         private SymbolPair(KeyValuePair<Symbol, Symbol> pair)
             : this(pair.Key, pair.Value)
