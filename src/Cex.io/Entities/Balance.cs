@@ -17,7 +17,10 @@ namespace Nextmethod.Cex
             IXC = SymbolBalance.Zero;
             LTC = SymbolBalance.Zero;
             NMC = SymbolBalance.Zero;
-        }
+			USD = SymbolBalance.Zero;
+			EUR = SymbolBalance.Zero;
+			ETH = SymbolBalance.Zero;
+		}
 
         public SymbolBalance BF1 { get; internal set; }
         
@@ -33,7 +36,13 @@ namespace Nextmethod.Cex
 
         public SymbolBalance NMC { get; internal set; }
 
-        public Timestamp Timestamp { get; internal set; }
+		public SymbolBalance USD { get; internal set; }
+
+		public SymbolBalance EUR { get; internal set; }
+
+		public SymbolBalance ETH { get; internal set; }
+
+		public Timestamp Timestamp { get; internal set; }
 
         public SymbolBalance this[Symbol s]
         {
@@ -65,7 +74,16 @@ namespace Nextmethod.Cex
                     case Symbol.NMC:
                         return NMC;
 
-                    default:
+					case Symbol.USD:
+						return USD;
+
+					case Symbol.EUR:
+						return EUR;
+
+					case Symbol.ETH:
+						return ETH;
+
+					default:
                         throw new IndexOutOfRangeException(string.Format("{0} does not exist", s.Name()));
                 }
             }
@@ -102,7 +120,19 @@ namespace Nextmethod.Cex
                         NMC = value;
                         break;
 
-                    default:
+					case Symbol.EUR:
+						EUR = value;
+						break;
+
+					case Symbol.USD:
+						USD = value;
+						break;
+
+					case Symbol.ETH:
+						ETH = value;
+						break;
+
+					default:
                         throw new IndexOutOfRangeException(string.Format("{0} does not exist", s.Name()));
                 }
             }
