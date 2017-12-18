@@ -3,8 +3,8 @@ using System.Linq;
 
 namespace Nextmethod.Cex
 {
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable InconsistentNaming
+    // ReSharper disable MemberCanBePrivate.Global
+    // ReSharper disable InconsistentNaming
     public class Balance
     {
 
@@ -17,13 +17,14 @@ namespace Nextmethod.Cex
             IXC = SymbolBalance.Zero;
             LTC = SymbolBalance.Zero;
             NMC = SymbolBalance.Zero;
-			USD = SymbolBalance.Zero;
-			EUR = SymbolBalance.Zero;
-			ETH = SymbolBalance.Zero;
-		}
+            USD = SymbolBalance.Zero;
+            EUR = SymbolBalance.Zero;
+            ETH = SymbolBalance.Zero;
+            XRP = SymbolBalance.Zero;
+        }
 
         public SymbolBalance BF1 { get; internal set; }
-        
+
         public SymbolBalance BTC { get; internal set; }
 
         public SymbolBalance DVC { get; internal set; }
@@ -36,13 +37,15 @@ namespace Nextmethod.Cex
 
         public SymbolBalance NMC { get; internal set; }
 
-		public SymbolBalance USD { get; internal set; }
+        public SymbolBalance USD { get; internal set; }
 
-		public SymbolBalance EUR { get; internal set; }
+        public SymbolBalance EUR { get; internal set; }
 
-		public SymbolBalance ETH { get; internal set; }
+        public SymbolBalance ETH { get; internal set; }
 
-		public Timestamp Timestamp { get; internal set; }
+        public SymbolBalance XRP { get; internal set; }
+
+        public Timestamp Timestamp { get; internal set; }
 
         public SymbolBalance this[Symbol s]
         {
@@ -74,16 +77,19 @@ namespace Nextmethod.Cex
                     case Symbol.NMC:
                         return NMC;
 
-					case Symbol.USD:
-						return USD;
+                    case Symbol.USD:
+                        return USD;
 
-					case Symbol.EUR:
-						return EUR;
+                    case Symbol.EUR:
+                        return EUR;
 
-					case Symbol.ETH:
-						return ETH;
+                    case Symbol.ETH:
+                        return ETH;
 
-					default:
+                    case Symbol.XRP:
+                        return XRP;
+
+                    default:
                         throw new IndexOutOfRangeException(string.Format("{0} does not exist", s.Name()));
                 }
             }
@@ -120,19 +126,23 @@ namespace Nextmethod.Cex
                         NMC = value;
                         break;
 
-					case Symbol.EUR:
-						EUR = value;
-						break;
+                    case Symbol.EUR:
+                        EUR = value;
+                        break;
 
-					case Symbol.USD:
-						USD = value;
-						break;
+                    case Symbol.USD:
+                        USD = value;
+                        break;
 
-					case Symbol.ETH:
-						ETH = value;
-						break;
+                    case Symbol.ETH:
+                        ETH = value;
+                        break;
 
-					default:
+                    case Symbol.XRP:
+                        XRP = value;
+                        break;
+
+                    default:
                         throw new IndexOutOfRangeException(string.Format("{0} does not exist", s.Name()));
                 }
             }
@@ -147,7 +157,7 @@ namespace Nextmethod.Cex
             var json = data as JsonObject;
             if (json == null) return balance;
 
-            foreach (var sym in Enum.GetValues(typeof (Symbol)).Cast<Symbol>())
+            foreach (var sym in Enum.GetValues(typeof(Symbol)).Cast<Symbol>())
             {
                 if (json.ContainsKey(sym.Name()))
                 {
@@ -201,6 +211,6 @@ namespace Nextmethod.Cex
         }
 
     }
-// ReSharper restore InconsistentNaming
-// ReSharper restore MemberCanBePrivate.Global
+    // ReSharper restore InconsistentNaming
+    // ReSharper restore MemberCanBePrivate.Global
 }

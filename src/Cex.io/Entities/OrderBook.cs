@@ -34,7 +34,7 @@ namespace Nextmethod.Cex
             var quantity = orderData[1];
             return new OrderBookOrder(
                 Convert.ToDecimal(price),
-                decimal.Parse(quantity)
+                Convert.ToDecimal(quantity)
                 );
         }
 
