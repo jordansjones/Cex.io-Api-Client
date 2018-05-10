@@ -7,14 +7,14 @@ namespace Nextmethod.Cex
     public struct TradeId : IComparable, IComparable<TradeId>, IFormattable, IEquatable<TradeId>
     {
 
-        private readonly uint _id;
+        private readonly UInt64 _id;
 
-        public TradeId(uint id)
+        public TradeId(UInt64 id)
         {
             _id = id;
         }
 
-        public uint Id
+        public UInt64 Id
         {
             get { return _id; }
         }
@@ -109,7 +109,7 @@ namespace Nextmethod.Cex
 
         public static implicit operator TradeId(string value)
         {
-            return new TradeId(uint.Parse(value));
+            return new TradeId(Convert.ToUInt64(value));
         }
 
 
