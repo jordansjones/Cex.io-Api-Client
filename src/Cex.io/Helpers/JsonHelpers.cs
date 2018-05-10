@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 
@@ -33,8 +33,9 @@ namespace Nextmethod.Cex
             var valueType = value.GetType();
 
             if (valueType == typeof (decimal)) return value;
-            if (valueType == typeof (double)) return (decimal) value;
-            return decimal.Parse(value, CultureInfo.InvariantCulture);
+            if (valueType == typeof (double)) return (decimal)value;
+
+            return Convert.ToDecimal(value);
         }
 
     }
