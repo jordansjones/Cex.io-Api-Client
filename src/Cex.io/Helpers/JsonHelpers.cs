@@ -35,7 +35,7 @@ namespace Nextmethod.Cex
             if (valueType == typeof (decimal)) return value;
             if (valueType == typeof (double)) return (decimal)value;
 
-            return Convert.ToDecimal(value);
+            return decimal.Parse(value, CultureInfo.InvariantCulture);
         }
 
     }
