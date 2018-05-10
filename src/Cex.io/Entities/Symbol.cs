@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,12 +18,33 @@ namespace Nextmethod.Cex
         EUR,
         ETH,
         XRP,
+        BCH,
+        BTG,
+        DASH,
+        XLM,
+        ZEC,
     }
 
 
     public sealed class SymbolPair
     {
-        
+        public static readonly SymbolPair ETH_EUR = new SymbolPair(Symbol.ETH, Symbol.EUR);
+        public static readonly SymbolPair BCH_USD = new SymbolPair(Symbol.BCH, Symbol.USD);
+        public static readonly SymbolPair BCH_EUR = new SymbolPair(Symbol.BCH, Symbol.EUR);
+        public static readonly SymbolPair BTG_EUR = new SymbolPair(Symbol.BTG, Symbol.EUR);
+        public static readonly SymbolPair BTG_USD = new SymbolPair(Symbol.BTG, Symbol.USD);
+        public static readonly SymbolPair DASH_USD = new SymbolPair(Symbol.DASH, Symbol.USD);
+        public static readonly SymbolPair DASH_EUR = new SymbolPair(Symbol.DASH, Symbol.EUR);
+        public static readonly SymbolPair XLM_EUR = new SymbolPair(Symbol.XLM, Symbol.EUR);
+        public static readonly SymbolPair XLM_USD = new SymbolPair(Symbol.XLM, Symbol.USD);
+        public static readonly SymbolPair ZEC_EUR = new SymbolPair(Symbol.ZEC, Symbol.EUR);
+        public static readonly SymbolPair ZEC_USD = new SymbolPair(Symbol.ZEC, Symbol.USD);
+
+
+
+
+
+
         public static readonly SymbolPair GHS_NMC = new SymbolPair(Symbol.GHS, Symbol.NMC);
         public static readonly SymbolPair BTC_EUR = new SymbolPair(Symbol.BTC, Symbol.EUR);
         public static readonly SymbolPair XRP_EUR = new SymbolPair(Symbol.XRP, Symbol.EUR);
@@ -33,6 +54,7 @@ namespace Nextmethod.Cex
         public static readonly SymbolPair ETH_USD = new SymbolPair(Symbol.ETH, Symbol.USD);
 		public static readonly SymbolPair BTC_USD = new SymbolPair(Symbol.BTC, Symbol.USD);
         public static readonly SymbolPair XRP_USD = new SymbolPair(Symbol.XRP, Symbol.USD);
+
 
         #endregion
 
