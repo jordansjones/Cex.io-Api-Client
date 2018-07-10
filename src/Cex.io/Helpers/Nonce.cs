@@ -9,7 +9,7 @@ namespace Nextmethod.Cex
     {
         private const long NonceEpoch = 635241312000000000L; // January 01, 2014 in ticks
 
-        private const int IncrementAmount = 1;
+        private const int IncrementAmount = 10; // Changed from 1 to 10, to avoid nonce incremented error ;S "Nonce must be incremented"
 
         private static int _nonce;
 
