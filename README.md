@@ -1,6 +1,6 @@
 # Cex.io Api Client
 
-[Cex.IO](https://cex.io/r/0/jordansjones/0/) API Client Library for C# 4.5
+[Cex.IO](https://cex.io/?c=4&a=1100&o=2&s=sc) API Client Library for C# 4.5
 
 Donations always welcome: **1KLetr9U8DCVjJK1czT7KB4PxpyLhQHHJF**
 
